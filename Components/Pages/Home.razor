@@ -1,0 +1,19 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using Hangfire
+@using IPBSyncAppNetCore.Jobs
+
+<PageTitle>IPB Sync App</PageTitle>
+
+@currentCount
+<button class="btn btn-primary" @onclick="GetStocs">GetStock Articole</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void GetStocs()
+    {
+        currentCount++;
+        BackgroundJob.Enqueue(() => new SyncStocksJob().Execute());
+    }
+}

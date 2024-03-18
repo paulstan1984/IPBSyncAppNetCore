@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\pages\\stocks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\pages\\stocks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncstocksjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncstocksjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SyncStocksJob.cs",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncStocksJob.cs",
+              "RelativeDocumentMoniker": "Jobs\\SyncStocksJob.cs",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncStocksJob.cs",
+              "RelativeToolTip": "Jobs\\SyncStocksJob.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAxwBEAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-18T18:29:54.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Stocks.razor",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Stocks.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Stocks.razor",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Stocks.razor",
+              "RelativeToolTip": "Components\\Pages\\Stocks.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-18T18:14:28.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-18T18:11:44.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Home.razor",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Home.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Home.razor",
+              "RelativeToolTip": "Components\\Pages\\Home.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-18T18:11:04.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-03-18T18:09:07.716Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

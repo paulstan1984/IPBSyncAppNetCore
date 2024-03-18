@@ -1,0 +1,60 @@
+﻿@page "/sync-stocks"
+@attribute [StreamRendering]
+
+<PageTitle>Sync stocuri</PageTitle>
+
+<h1>Sync Stocuri</h1>
+
+@if (stocuri == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @stocuri
+    </div>
+}
+
+@code {
+    private string stocuri;
+    private string RESTAPIURL = "http://iuliusrds.ipb.ro:8080/datasnap/rest/TServerMethods/";
+
+    public async Task<string> GetStocs()
+    {
+        // Create an instance of HttpClient
+        using var client = new HttpClient();
+
+        // Set base address of the API
+        client.BaseAddress = new Uri(RESTAPIURL);
+
+        try
+        {
+            // Call the API asynchronously
+            HttpResponseMessage response = await client.GetAsync("GetStocArticoleExt");
+
+            // Check if the response is successful
+            if (response.IsSuccessStatusCode)
+            {
+                // Read the content of the response
+                string responseData = await response.Content.ReadAsStringAsync();
+
+                return responseData;
+            }
+            else
+            {
+                return $"Failed to call the API. Status code: {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            return $"An error occurred: {ex.Message}";
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        stocuri = await GetStocs();
+    }
+
+}
