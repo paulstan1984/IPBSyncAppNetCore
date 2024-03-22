@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IPBSyncAppNetCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f45621823ce9a4dfc362bf0363c98f7353c89e6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+21d20e3272c86bf5cfd2adf1da616ca2562c7861")]
 [assembly: System.Reflection.AssemblyProductAttribute("IPBSyncAppNetCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IPBSyncAppNetCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

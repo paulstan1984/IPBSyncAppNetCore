@@ -1,6 +1,6 @@
 ﻿namespace IPBSyncAppNetCore.Jobs
 {
-    public class SyncArticlesDescriptions
+    public class SyncDescriptionsJobs
     {
         public void Execute()
         {

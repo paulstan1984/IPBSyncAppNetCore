@@ -1,5 +1,6 @@
 using Hangfire;
 using IPBSyncAppNetCore.Components;
+using IPBSyncAppNetCore.Jobs;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,5 +42,7 @@ app.MapRazorComponents<App>()
 app.UseHangfireDashboard("/hangfire-dashboard", new DashboardOptions
 {
 });
+
+JobsScheduler.ScheduleJobs();
 
 app.Run();

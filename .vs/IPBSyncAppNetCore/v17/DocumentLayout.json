@@ -3,52 +3,16 @@
   "WorkspaceRootPath": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncarticlesdescriptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncarticlesdescriptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\jobsscheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\jobsscheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncimagesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncimagesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncdescriptiobsjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncdescriptiobsjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\synccategoriesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\synccategoriesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\markordersasexportedjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\markordersasexportedjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\downloadordersjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\downloadordersjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncstocksjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncstocksjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncarticlesfulljobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncarticlesfulljobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\jobs\\syncarticlesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:jobs\\syncarticlesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\pages\\stocks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\pages\\stocks.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|c:\\laragon\\www\\ipb\\ipbsyncappnetcore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{04BC6946-9B57-41C1-AC5A-ACF8AF64C427}|IPBSyncAppNetCore.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,160 +22,46 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SyncArticlesDescriptions.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesDescriptions.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncArticlesDescriptions.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesDescriptions.cs",
-              "RelativeToolTip": "Jobs\\SyncArticlesDescriptions.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:58:11.707Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SyncImagesJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncImagesJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncImagesJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncImagesJob.cs",
-              "RelativeToolTip": "Jobs\\SyncImagesJob.cs",
+              "Title": "SyncDescriptiobsJob.cs",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncDescriptiobsJob.cs",
+              "RelativeDocumentMoniker": "Jobs\\SyncDescriptiobsJob.cs",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncDescriptiobsJob.cs",
+              "RelativeToolTip": "Jobs\\SyncDescriptiobsJob.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:57:37.386Z",
+              "WhenOpened": "2024-03-22T19:40:18.961Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SyncCategoriesJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncCategoriesJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncCategoriesJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncCategoriesJob.cs",
-              "RelativeToolTip": "Jobs\\SyncCategoriesJob.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAJAAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAQwC0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:56:49.415Z",
+              "WhenOpened": "2024-03-22T19:37:30.81Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MarkOrdersAsExportedJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\MarkOrdersAsExportedJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\MarkOrdersAsExportedJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\MarkOrdersAsExportedJob.cs",
-              "RelativeToolTip": "Jobs\\MarkOrdersAsExportedJob.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "JobsScheduler.cs",
+              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\JobsScheduler.cs",
+              "RelativeDocumentMoniker": "Jobs\\JobsScheduler.cs",
+              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\JobsScheduler.cs",
+              "RelativeToolTip": "Jobs\\JobsScheduler.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAAAsAAABuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:56:11.627Z",
+              "WhenOpened": "2024-03-22T18:58:11.707Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DownloadOrdersJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\DownloadOrdersJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\DownloadOrdersJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\DownloadOrdersJob.cs",
-              "RelativeToolTip": "Jobs\\DownloadOrdersJob.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:55:32.471Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "SyncArticlesJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncArticlesJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesJob.cs",
-              "RelativeToolTip": "Jobs\\SyncArticlesJob.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:54:23.264Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SyncArticlesFullJobs.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesFullJobs.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncArticlesFullJobs.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncArticlesFullJobs.cs",
-              "RelativeToolTip": "Jobs\\SyncArticlesFullJobs.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T18:54:05.785Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SyncStocksJob.cs",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncStocksJob.cs",
-              "RelativeDocumentMoniker": "Jobs\\SyncStocksJob.cs",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Jobs\\SyncStocksJob.cs",
-              "RelativeToolTip": "Jobs\\SyncStocksJob.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-18T18:29:54.365Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Stocks.razor",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Stocks.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Stocks.razor",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Stocks.razor",
-              "RelativeToolTip": "Components\\Pages\\Stocks.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-18T18:14:28.953Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "MainLayout.razor",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\MainLayout.razor",
-              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\MainLayout.razor",
-              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-18T18:11:44.955Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Home.razor",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Pages\\Home.razor",
-              "RelativeToolTip": "Components\\Pages\\Home.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-18T18:11:04.162Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\laragon\\www\\ipb\\IPBSyncAppNetCore\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-18T18:09:07.716Z"
             }
           ]
         }
