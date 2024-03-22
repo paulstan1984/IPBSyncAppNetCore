@@ -4,12 +4,12 @@
     {
         public void Execute()
         {
-            this.GetStocs().Wait();
+            this.Exdecute().Wait();
         }
 
         private string RESTAPIURL = "http://iuliusrds.ipb.ro:8080/datasnap/rest/TServerMethods/";
 
-        public async Task<string> GetStocs()
+        public async Task<string> Exdecute()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
