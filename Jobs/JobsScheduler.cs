@@ -13,8 +13,8 @@ namespace IPBSyncAppNetCore.Jobs
             RecurringJob.AddOrUpdate<SyncStocksJob>("sync-stocks", job => job.Execute(), "0,30 * * * *");
             RecurringJob.AddOrUpdate<DownloadOrdersJob>("download-orders", job => job.Execute(), "10,40 * * * *");
 
-            RecurringJob.AddOrUpdate<SyncArticlesFullJobs>("sync-articles-full", job => job.Execute(), Cron.Daily);
-            RecurringJob.AddOrUpdate<SyncCategoriesJob>("sync-categories", job => job.Execute(), Cron.Daily);
+            RecurringJob.AddOrUpdate<SyncCategoriesJob>("sync-categories", job => job.Execute(), Cron.Daily(0));
+            RecurringJob.AddOrUpdate<SyncArticlesFullJobs>("sync-articles-full", job => job.Execute(), Cron.Daily(2));
         }
     }
 }
