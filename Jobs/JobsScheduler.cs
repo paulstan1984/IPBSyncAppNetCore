@@ -6,15 +6,15 @@ namespace IPBSyncAppNetCore.Jobs
     {
         public static void ScheduleJobs()
         {
-            RecurringJob.AddOrUpdate("sync-images", () => new SyncImagesJob().Execute(), Cron.MinuteInterval(5));
-            RecurringJob.AddOrUpdate("sync-descriptions", () => new SyncDescriptionsJobs().Execute(), Cron.MinuteInterval(5));
+            RecurringJob.AddOrUpdate<SyncImagesJob>("sync-images", job => job.Execute(), "*/15 * * * *");
+            RecurringJob.AddOrUpdate<SyncDescriptionsJobs>("sync-descriptions", job => job.Execute(), "*/15 * * * *");
 
-            RecurringJob.AddOrUpdate("sync-articles", () => new SyncArticlesJob().Execute(), Cron.Hourly(30));
-            RecurringJob.AddOrUpdate("sync-stocks", () => new SyncStocksJob().Execute(), Cron.MinuteInterval(30));
-            RecurringJob.AddOrUpdate("download-orders", () => new DownloadOrdersJob().Execute(), Cron.MinuteInterval(30));
+            RecurringJob.AddOrUpdate<SyncArticlesJob>("sync-articles", job => job.Execute(), "15 * * * *");
+            RecurringJob.AddOrUpdate<SyncStocksJob>("sync-stocks", job => job.Execute(), "0,30 * * * *");
+            RecurringJob.AddOrUpdate<DownloadOrdersJob>("download-orders", job => job.Execute(), "10,40 * * * *");
 
-            RecurringJob.AddOrUpdate("sync-articles-full", () => new SyncArticlesFullJobs().Execute(), Cron.Daily);
-            RecurringJob.AddOrUpdate("sync-categories", () => new SyncCategoriesJob().Execute(), Cron.Daily);
+            RecurringJob.AddOrUpdate<SyncArticlesFullJobs>("sync-articles-full", job => job.Execute(), Cron.Daily);
+            RecurringJob.AddOrUpdate<SyncCategoriesJob>("sync-categories", job => job.Execute(), Cron.Daily);
         }
     }
 }
