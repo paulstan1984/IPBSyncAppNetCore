@@ -12,6 +12,7 @@
     <PackageReference Include="Hangfire.Core" Version="1.8.11" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.8.11" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+    <PackageReference Include="NLog" Version="5.2.8" />
   </ItemGroup>
 
 </Project>
