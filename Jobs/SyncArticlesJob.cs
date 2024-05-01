@@ -58,6 +58,9 @@ namespace IPBSyncAppNetCore.Jobs
                     Logger.Info(response);
                 }
 
+                Logger.Info("Call Transfer Data");
+                await CallTransferData();
+
                 Logger.Info("End Sync Articles");
             }
             catch (Exception ex)
@@ -124,7 +127,42 @@ namespace IPBSyncAppNetCore.Jobs
 
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("truncate");
+                HttpResponseMessage response = await client.DeleteAsync("truncate-articles");
+                var strResponse = await response.Content.ReadAsStringAsync();
+                Logger.Debug("Response from OpenCart");
+                Logger.Debug(strResponse);
+
+                // Check if the response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    using (var responseStream = await response.Content.ReadAsStreamAsync())
+                    using (var reader = new JsonTextReader(new StreamReader(responseStream)))
+                    {
+                        JObject data = (JObject)JToken.ReadFrom(reader);
+                        Logger.Debug("Received response from OpenCart");
+                        Logger.Debug(data.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("An error appeared when calling truncate endpoint on OpenCart");
+                Logger.Error(ex);
+            }
+        }
+
+        private async Task CallTransferData()
+        {
+            // Create an instance of HttpClient
+            using var client = new HttpClient();
+
+            // Set base address of the API
+            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+
+            try
+            {
+                HttpResponseMessage response = await client.PostAsync("transfer-products", null);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse);
