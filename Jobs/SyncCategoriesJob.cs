@@ -13,7 +13,7 @@ namespace IPBSyncAppNetCore.Jobs
 
         public void Execute()
         {
-            this.InternalExecute().Wait();
+            InternalExecute().Wait();
         }
 
         private async Task InternalExecute()
@@ -28,7 +28,7 @@ namespace IPBSyncAppNetCore.Jobs
 
                 Logger.Info("Get categories from WME using REST API");
                 JArray? WMECategories = Config.IsDebug
-                    ? await LoadCategories() // load categories from a local file
+                    ? await LoadCategories()  // load categories from a local file
                     : await GetWMEResponse(); // load categories from WME Rest API
 
                 if (WMECategories == null)
