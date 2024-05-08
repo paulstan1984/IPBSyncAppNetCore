@@ -2,7 +2,7 @@
 
 namespace IPBSyncAppNetCore.Jobs.Models
 {
-    public class WMEStock
+    public class WMEProductStock
     {
         public string Subunitate { get; set; }
         public string StocMinim { get; set; }
@@ -52,7 +52,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
             }
         }
         [JsonIgnore]
-        public WMEStock[] StocPeSubunitati { get; set; }
+        public WMEProductStock[] StocPeSubunitati { get; set; }
         public int Stock
         {
             get

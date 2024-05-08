@@ -13,7 +13,7 @@ namespace IPBSyncAppNetCore.Jobs
 
         public void Execute()
         {
-            this.InternalExecute().Wait();
+            InternalExecute().Wait();
         }
 
         private async Task InternalExecute()
