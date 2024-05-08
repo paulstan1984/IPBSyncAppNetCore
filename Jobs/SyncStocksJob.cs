@@ -89,7 +89,7 @@ namespace IPBSyncAppNetCore.Jobs
                     using (var responseStream = await response.Content.ReadAsStreamAsync())
                     using (var reader = new JsonTextReader(new StreamReader(responseStream)))
                     {
-                        JObject data = (JObject)JToken.ReadFrom(reader);
+                        JObject data = (JToken.ReadFrom(reader) as JArray).Last() as JObject;
 
                         return data["Data"] as JArray;
                     }
@@ -110,7 +110,7 @@ namespace IPBSyncAppNetCore.Jobs
             using (var responseStream = new FileStream(@"C:\laragon\www\ipb\GetStocArticoleExt.json", FileMode.Open))
             using (var reader = new JsonTextReader(new StreamReader(responseStream)))
             {
-                JObject data = (JObject)JToken.ReadFrom(reader);
+                JObject data = (JToken.ReadFrom(reader) as JArray).Last() as JObject;
 
                 return data["Data"] as JArray;
             }
