@@ -162,7 +162,7 @@ namespace IPBSyncAppNetCore.Jobs
 
             try
             {
-                HttpResponseMessage response = await client.PostAsync("transfer-products", null);
+                HttpResponseMessage response = await client.PostAsync("transfer-articles", null);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse);
