@@ -1,62 +1,90 @@
-﻿using System.Runtime.Serialization;
+﻿using IPBSyncAppNetCore.utils;
+using Newtonsoft.Json;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace IPBSyncAppNetCore.Jobs.Models
 {
     public class OCOrder
     {
-        [DataMember(Name = "order_id")]
+        [JsonProperty("order_id")]
         public int OrderId { get; set; }
 
-        [DataMember(Name = "first_name")]
+        [JsonProperty("first_name")]
         public string? FirstName { get; set; }
 
-        [DataMember(Name = "last_name")]
+        [JsonProperty("last_name")]
         public string? LastName { get; set; }
 
-        [DataMember(Name = "email")]
+        [JsonProperty("email")]
         public string? Email { get; set; }
 
-        [DataMember(Name = "telephone")]
+        [JsonProperty("telephone")]
         public string? Phone { get; set; }
 
-        [DataMember(Name = "products")]
+        [JsonProperty("products")]
         public List<OCOrderProduct>? Products { get; set; }
-        [DataMember(Name = "totals")]
+        [JsonProperty("totals")]
         public List<OCOrderTotal>? Totals { get; set; }
+
+        [JsonProperty("date_added")]
+        [JsonConverter(typeof(DateTimeConverter))]
+        public DateTime DateAdded { get; set; }
+
+        public WmeOrder WmeOrder => new WmeOrder
+        {
+            AnLucru = DateAdded.Year.ToString(),
+            LunaLucru = DateAdded.Month.ToString(),
+            DataDoc = DateAdded.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture),
+            NrDoc = OrderId.ToString(),
+            Items = Products
+                ?.Select(p => new WmeItem
+                {
+                    Pret = p.Price,
+                    Cant = p.Quantity,
+                    UM = p.Location ?? "BUC",
+                    ID = p.Model
+                })
+                .ToArray()
+        };
     }
 
     public class OCOrderProduct
     {
-        [DataMember(Name = "product_id")]
+        [JsonProperty("product_id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "model")]
+        [JsonProperty("model")]
         public string Model { get; set; }
 
-        [DataMember(Name = "quantity")]
+
+        [JsonProperty("location")]
+        public string Location { get; set; }
+
+        [JsonProperty("quantity")]
         public int Quantity { get; set; }
 
-        [DataMember(Name = "price")]
+        [JsonProperty("price")]
         public decimal Price { get; set; }
 
-        [DataMember(Name = "total")]
+        [JsonProperty("total")]
         public decimal Total { get; set; }
-        [DataMember(Name = "tax")]
+        [JsonProperty("tax")]
         public decimal Tax { get; set; }
     }
 
     public class OCOrderTotal
     {
-        [DataMember(Name = "code")]
+        [JsonProperty("code")]
         public string Code { get; set; }
 
-        [DataMember(Name = "title")]
+        [JsonProperty("title")]
         public string Title { get; set; }
 
-        [DataMember(Name = "value")]
+        [JsonProperty("value")]
         public decimal Value { get; set; }
     }
 }

@@ -41,11 +41,7 @@ namespace IPBSyncAppNetCore.Jobs
 
                     if (Config.IsDebug)
                     {
-                        imported = WriteOrderToFile(OCOrder);
-                    }
-                    else
-                    {
-                        imported = SendOrderToWME(OCOrder);
+                        imported = SendOrderToWME(OCOrder.WmeOrder);
                     };
 
                     if (imported)
@@ -128,6 +124,24 @@ namespace IPBSyncAppNetCore.Jobs
             }
 
             return Array.Empty<OCOrder>();
+        }
+
+        private bool SendOrderToWME(WmeOrder order)
+        {
+            if (Config.IsDebug)
+            {
+                File.WriteAllText(@$"C:\laragon\www\ipb\order-{order.NrDoc}-{order.DataDoc}.json", JsonConvert.SerializeObject(order));
+                return true;
+            }
+            else
+            {
+                //aici
+                return false;
+            };
+        }
+
+        private void MarkOrderAsExported(OCOrder order)
+        {
         }
     }
 
