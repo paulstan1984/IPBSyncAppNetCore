@@ -41,7 +41,7 @@ namespace IPBSyncAppNetCore.Jobs
 
                     if (Config.IsDebug)
                     {
-                        imported = SendOrderToWME(OCOrder.WmeOrder);
+                        imported = await SendOrderToWME(OCOrder.WmeOrder);
                     };
 
                     if (imported)
@@ -126,7 +126,7 @@ namespace IPBSyncAppNetCore.Jobs
             return Array.Empty<OCOrder>();
         }
 
-        private bool SendOrderToWME(WmeOrder order)
+        private async Task<bool> SendOrderToWME(WmeOrder order)
         {
             if (Config.IsDebug)
             {
@@ -135,9 +135,39 @@ namespace IPBSyncAppNetCore.Jobs
             }
             else
             {
-                //aici
-                return false;
+                // Create an instance of HttpClient
+                using var client = new HttpClient();
+
+                // Set base address of the API
+                client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+
+                try
+                {
+                    // Call the API asynchronously
+                    HttpResponseMessage response = await client.PostAsJsonAsync("ImportOrder", order);
+
+                    // Check if the response is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        using (var responseStream = await response.Content.ReadAsStreamAsync())
+                        using (var reader = new JsonTextReader(new StreamReader(responseStream)))
+                        {
+                            JObject data = (JObject)JToken.ReadFrom(reader);
+
+                            return true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error("An error appeared when importing order to WME");
+                    Logger.Error(ex);
+
+                    return false;
+                }
             };
+
+            return false;
         }
 
         private void MarkOrderAsExported(OCOrder order)
