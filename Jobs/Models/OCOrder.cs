@@ -1,7 +1,6 @@
 ﻿using IPBSyncAppNetCore.utils;
 using Newtonsoft.Json;
 using System.Globalization;
-using System.Runtime.Serialization;
 
 namespace IPBSyncAppNetCore.Jobs.Models
 {
@@ -31,12 +30,16 @@ namespace IPBSyncAppNetCore.Jobs.Models
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime DateAdded { get; set; }
 
+        [JsonProperty("tax")]
+        public string CUI_CNP {  get; set; }
+
         public WmeOrder WmeOrder => new WmeOrder
         {
             AnLucru = DateAdded.Year.ToString(),
             LunaLucru = DateAdded.Month.ToString(),
             DataDoc = DateAdded.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture),
             NrDoc = OrderId.ToString(),
+            IDClient = CUI_CNP, // CUI for PF / CNP for PF?
             Items = Products
                 ?.Select(p => new WmeItem
                 {

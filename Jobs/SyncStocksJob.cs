@@ -11,25 +11,22 @@ namespace IPBSyncAppNetCore.Jobs
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public void Execute()
-        {
-            InternalExecute().Wait();
-        }
+        public void Execute() => RunJob().Wait();
 
-        private async Task InternalExecute()
+        private async Task RunJob()
         {
             try
             {
                 Logger.Info("Start Sync Stocks");
 
                 Logger.Info("Call Truncate Table");
-                await CallTruncateTable();
+                await OCTruncateTable();
                 Logger.Info("WME_Stocks table truncated");
 
                 Logger.Info("Get stocks from WME using REST API");
                 JArray? WMEStocks = Config.IsDebug
                     ? await LoadStocks() // load stocks from a local file
-                    : await GetWMEResponse(); // load stocks from WME Rest API
+                    : await GetWMEStocks(); // load stocks from WME Rest API
 
                 if (WMEStocks == null)
                 {
@@ -53,13 +50,13 @@ namespace IPBSyncAppNetCore.Jobs
                     currentIndex += Config.BatchSize;
 
                     Logger.Info($"Sending {stocks.Length} records to oc API...");
-                    string response = await GetWebAPIResponse(stocks);
+                    string response = await OCSyncStocks(stocks);
                     Logger.Info($"Response from OC API:");
                     Logger.Info(response);
                 }
 
                 Logger.Info("Call Transfer Data");
-                await CallTransferData();
+                await OCTransferStocks();
 
                 Logger.Info("End Sync Stocks");
             }
@@ -70,7 +67,8 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<JArray?> GetWMEResponse()
+        #region internal operations
+        private async Task<JArray?> GetWMEStocks()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -116,7 +114,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task CallTruncateTable()
+        private async Task OCTruncateTable()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -151,7 +149,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task CallTransferData()
+        private async Task OCTransferStocks()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -186,7 +184,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<string> GetWebAPIResponse(WmeStock[] stocks)
+        private async Task<string> OCSyncStocks(WmeStock[] stocks)
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -238,5 +236,7 @@ namespace IPBSyncAppNetCore.Jobs
                 return ex.Message;
             }
         }
+
+        #endregion
     }
 }

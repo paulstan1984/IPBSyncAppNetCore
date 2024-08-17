@@ -1,8 +1,6 @@
 ﻿using IPBSyncAppNetCore.Jobs.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using System.Text.Json;
 using NLog;
 
 namespace IPBSyncAppNetCore.Jobs
@@ -11,19 +9,16 @@ namespace IPBSyncAppNetCore.Jobs
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public void Execute()
-        {
-            InternalExecute().Wait();
-        }
+        public void Execute() => RunJob().Wait()
 
-        private async Task InternalExecute()
+        private async Task RunJob()
         {
             try
             {
                 Logger.Info("Start Download Orders");
 
                 Logger.Info("Get orders from OC/Laravel API ");
-                OCOrder[] OCOrders = await DownloadOrders();
+                OCOrder[] OCOrders = await OCDownloadOrders();
                     
                 if (OCOrders == null)
                 {
@@ -39,15 +34,12 @@ namespace IPBSyncAppNetCore.Jobs
                     Logger.Info($"Sending order to WME...");
                     bool imported = false;
 
-                    if (Config.IsDebug)
-                    {
-                        imported = await SendOrderToWME(OCOrder.WmeOrder);
-                    };
+                    imported = await SendOrderToWME(OCOrder.WmeOrder);
 
                     if (imported)
                     {
                         Logger.Info("Order has been successfully imported into WME");
-                        MarkOrderAsExported(OCOrder);
+                        OCMarkOrderAsExported(OCOrder);
                     }
                     
                 }
@@ -95,7 +87,7 @@ namespace IPBSyncAppNetCore.Jobs
             return new JArray();
         }
 
-        private async Task<OCOrder[]> DownloadOrders()
+        private async Task<OCOrder[]> OCDownloadOrders()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -144,7 +136,7 @@ namespace IPBSyncAppNetCore.Jobs
                 try
                 {
                     // Call the API asynchronously
-                    HttpResponseMessage response = await client.PostAsJsonAsync("ImportOrder", order);
+                    HttpResponseMessage response = await client.PostAsJsonAsync("ComandaClient//", order);
 
                     // Check if the response is successful
                     if (response.IsSuccessStatusCode)
@@ -170,7 +162,7 @@ namespace IPBSyncAppNetCore.Jobs
             return false;
         }
 
-        private void MarkOrderAsExported(OCOrder order)
+        private void OCMarkOrderAsExported(OCOrder order)
         {
         }
     }

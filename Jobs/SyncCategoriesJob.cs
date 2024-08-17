@@ -11,25 +11,22 @@ namespace IPBSyncAppNetCore.Jobs
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public void Execute()
-        {
-            InternalExecute().Wait();
-        }
+        public void Execute() => RunJob().Wait();
 
-        private async Task InternalExecute()
+        private async Task RunJob()
         {
             try
             {
                 Logger.Info("Start Sync Categories");
 
                 Logger.Info("Call Truncate Table");
-                await CallTruncateTable();
+                await OCTruncateTable();
                 Logger.Info("WME_Categories table truncated");
 
                 Logger.Info("Get categories from WME using REST API");
                 JArray? WMECategories = Config.IsDebug
                     ? await LoadCategories()  // load categories from a local file
-                    : await GetWMEResponse(); // load categories from WME Rest API
+                    : await GetWMECategories(); // load categories from WME Rest API
 
                 if (WMECategories == null)
                 {
@@ -53,13 +50,13 @@ namespace IPBSyncAppNetCore.Jobs
                     currentIndex += Config.BatchSize;
 
                     Logger.Info($"Sending {categories.Length} categories to oc API...");
-                    string response = await GetWebAPIResponse(categories);
+                    string response = await OCSyncCategories(categories);
                     Logger.Info($"Response from OC API:");
                     Logger.Info(response);
                 }
 
                 Logger.Info("Call Transfer Data");
-                await CallTransferData();
+                await OCCallTransferCategories();
 
                 Logger.Info("End Sync Categories");
             }
@@ -70,7 +67,8 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<JArray?> GetWMEResponse()
+        #region internal operations
+        private async Task<JArray?> GetWMECategories()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -116,7 +114,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task CallTruncateTable()
+        private async Task OCTruncateTable()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -151,7 +149,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task CallTransferData()
+        private async Task OCCallTransferCategories()
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -186,7 +184,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<string> GetWebAPIResponse(WMECategory[] categories)
+        private async Task<string> OCSyncCategories(WMECategory[] categories)
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -238,5 +236,7 @@ namespace IPBSyncAppNetCore.Jobs
                 return ex.Message;
             }
         }
+
+        #endregion
     }
 }
