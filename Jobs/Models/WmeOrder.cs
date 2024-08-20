@@ -1,4 +1,6 @@
-﻿namespace IPBSyncAppNetCore.Jobs.Models
+﻿using System.Text.Json.Serialization;
+
+namespace IPBSyncAppNetCore.Jobs.Models
 {
     public class WmeOrder
     {
@@ -9,6 +11,10 @@
         public string? NrDoc {  get; set; }
         public string? DataDoc { get; set; }
         public string? IDClient { get; set; }
+        [JsonIgnore]
+        public bool PF {  get; set; }
+        [JsonIgnore]
+        public string PhoneOrCUI { get; set; }
 
         public WmeItem[]? Items { get; set; }
     }

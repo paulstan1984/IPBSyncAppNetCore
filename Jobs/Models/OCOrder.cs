@@ -1,6 +1,7 @@
 ﻿using IPBSyncAppNetCore.utils;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace IPBSyncAppNetCore.Jobs.Models
 {
@@ -19,7 +20,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
         public string? Email { get; set; }
 
         [JsonProperty("telephone")]
-        public string? Phone { get; set; }
+        public string Phone { get; set; }
 
         [JsonProperty("products")]
         public List<OCOrderProduct>? Products { get; set; }
@@ -31,7 +32,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
         public DateTime DateAdded { get; set; }
 
         [JsonProperty("tax")]
-        public string CUI_CNP {  get; set; }
+        public string CUI {  get; set; }
 
         public WmeOrder WmeOrder => new WmeOrder
         {
@@ -39,7 +40,11 @@ namespace IPBSyncAppNetCore.Jobs.Models
             LunaLucru = DateAdded.Month.ToString(),
             DataDoc = DateAdded.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture),
             NrDoc = OrderId.ToString(),
-            IDClient = CUI_CNP, // CUI for PF / CNP for PF?
+            PF = string.IsNullOrEmpty(CUI),
+            PhoneOrCUI = !string.IsNullOrEmpty(CUI) 
+                ? Regex.Replace(CUI, @"\D", "")
+                : Phone, 
+
             Items = Products
                 ?.Select(p => new WmeItem
                 {

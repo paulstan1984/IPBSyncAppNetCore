@@ -2,6 +2,9 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using NLog;
+using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace IPBSyncAppNetCore.Jobs
 {
@@ -9,7 +12,7 @@ namespace IPBSyncAppNetCore.Jobs
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public void Execute() => RunJob().Wait()
+        public void Execute() => RunJob().Wait();
 
         private async Task RunJob()
         {
@@ -34,7 +37,14 @@ namespace IPBSyncAppNetCore.Jobs
                     Logger.Info($"Sending order to WME...");
                     bool imported = false;
 
-                    imported = await SendOrderToWME(OCOrder.WmeOrder);
+                    var WMEOrder = OCOrder.WmeOrder;
+
+                    if (!string.IsNullOrEmpty(WMEOrder.PhoneOrCUI))
+                    {
+                        WMEOrder.IDClient = await GetIdClientFromWME(WMEOrder.PF, WMEOrder.PhoneOrCUI);
+                    }
+
+                    imported = await SendOrderToWME(WMEOrder);
 
                     if (imported)
                     {
@@ -53,7 +63,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<JArray?> GetWMEResponse()
+        private async Task<string?> GetIdClientFromWME(bool PF, string searchField)
         {
             // Create an instance of HttpClient
             using var client = new HttpClient();
@@ -63,8 +73,32 @@ namespace IPBSyncAppNetCore.Jobs
 
             try
             {
+                dynamic? searchRequest = null;
+
+                if (PF)
+                {
+                    searchRequest = new
+                    {
+                        Telefon = searchField
+                    };
+                }
+                else
+                {
+                    searchRequest = new
+                    {
+                        CodFiscal = searchField
+                    };
+                }
+
+                // Configure JSON serializer options to use PascalCase
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = null
+                };
+                var content = JsonContent.Create(searchRequest, new MediaTypeWithQualityHeaderValue("application/json"), options);
+
                 // Call the API asynchronously
-                HttpResponseMessage response = await client.GetAsync("GetInfoArticole");
+                HttpResponseMessage response = await client.PostAsync("\"getInfoParteneri\"", content);
 
                 // Check if the response is successful
                 if (response.IsSuccessStatusCode)
@@ -74,7 +108,11 @@ namespace IPBSyncAppNetCore.Jobs
                     {
                         JObject data = (JObject)JToken.ReadFrom(reader);
 
-                        return data["InfoArticole"] as JArray;
+                        var partner = (data["InfoParteneri"] as JArray)?.FirstOrDefault();
+                        if (partner != null)
+                        {
+                            return partner["ID"]?.ToString();
+                        }
                     }
                 }
             }
@@ -84,7 +122,7 @@ namespace IPBSyncAppNetCore.Jobs
                 Logger.Error(ex);
             }
 
-            return new JArray();
+            return string.Empty;
         }
 
         private async Task<OCOrder[]> OCDownloadOrders()
