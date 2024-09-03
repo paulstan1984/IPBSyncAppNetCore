@@ -44,6 +44,12 @@ namespace IPBSyncAppNetCore.Jobs
                         WMEOrder.IDClient = await GetIdClientFromWME(WMEOrder.PF, WMEOrder.PhoneOrCUI);
                     }
 
+                    //if the client does not exist create it
+                    if (string.IsNullOrEmpty(WMEOrder.IDClient))
+                    {
+                        WMEOrder.IDClient = await CreatePartenerOnWME(WMEOrder.PF, OCOrder);
+                    }
+
                     imported = await SendOrderToWME(WMEOrder);
 
                     if (imported)
@@ -123,6 +129,82 @@ namespace IPBSyncAppNetCore.Jobs
             }
 
             return string.Empty;
+        }
+
+        private async Task<string> CreatePartenerOnWME(bool PF, OCOrder order)
+        {
+            // Create an instance of HttpClient
+            using var client = new HttpClient();
+
+            // Set base address of the API
+            client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+
+            try
+            {
+                WMEAddPartenerRequest addRequest = CreateAddPartenerRequest(PF, order);
+
+                // Configure JSON serializer options to use PascalCase
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = null
+                };
+                var content = JsonContent.Create(addRequest, new MediaTypeWithQualityHeaderValue("application/json"), options);
+
+                // Call the API asynchronously
+                HttpResponseMessage response = await client.PostAsync("InfoPartener//", content);
+
+                // Check if the response is successful
+                if (response.IsSuccessStatusCode)
+                {
+                    using (var responseStream = await response.Content.ReadAsStreamAsync())
+                    using (var reader = new JsonTextReader(new StreamReader(responseStream)))
+                    {
+                        JObject data = (JObject)JToken.ReadFrom(reader);
+
+                        var partner = (data["InfoParteneri"] as JArray)?.FirstOrDefault();
+                        if (partner != null)
+                        {
+                            return partner["ID"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("An error appeared when receiving products from WME");
+                Logger.Error(ex);
+            }
+
+            return string.Empty;
+        }
+
+        private WMEAddPartenerRequest CreateAddPartenerRequest(bool PF, OCOrder order)
+        {
+            var request = new WMEAddPartenerRequest
+            {
+                CUI = order.CUI,
+                CodExtern = PF ? order.Phone : order.CUI,
+                Nume = PF ? $"{order.FirstName} {order.LastName}" : order.Firma ?? string.Empty,
+                PersoanaFizica = PF ? "DA" : "NU",
+                Sedii = [
+                    new WMESediu
+                    {
+                        Localitate = order.City ?? string.Empty,
+                        Strada = order.Address ?? string.Empty,
+                        Telefon = order.Phone,
+                    }
+                ],
+                PersoaneContect = [
+                    new WMEPersoana {
+                        Prenume = order.FirstName ?? string.Empty,
+                        Nume = order.LastName ?? string.Empty,
+                        Telefon = order.Phone
+                    }
+                ]
+            };
+
+            return request;
+
         }
 
         private async Task<OCOrder[]> OCDownloadOrders()
