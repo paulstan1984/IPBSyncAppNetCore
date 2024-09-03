@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using NLog;
-using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
