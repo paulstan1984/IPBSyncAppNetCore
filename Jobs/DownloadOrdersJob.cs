@@ -50,7 +50,6 @@ namespace IPBSyncAppNetCore.Jobs
                     }
 
                     imported = await SendOrderToWME(WMEOrder);
-
                     if (imported)
                     {
                         Logger.Info("Order has been successfully imported into WME");
@@ -160,10 +159,11 @@ namespace IPBSyncAppNetCore.Jobs
                     {
                         JObject data = (JObject)JToken.ReadFrom(reader);
 
-                        var partner = (data["InfoParteneri"] as JArray)?.FirstOrDefault();
-                        if (partner != null)
+                        if (data["Error"].ToString() == "Ok")
                         {
-                            return partner["ID"].ToString();
+                            return PF
+                                ? order.Phone
+                                : order.CUI;
                         }
                     }
                 }
@@ -254,8 +254,15 @@ namespace IPBSyncAppNetCore.Jobs
 
                 try
                 {
+                    // Configure JSON serializer options to use PascalCase
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = null
+                    };
+                    var content = JsonContent.Create(order, new MediaTypeWithQualityHeaderValue("application/json"), options);
+
                     // Call the API asynchronously
-                    HttpResponseMessage response = await client.PostAsJsonAsync("ComandaClient//", order);
+                    HttpResponseMessage response = await client.PostAsync("ComandaClient//", content);
 
                     // Check if the response is successful
                     if (response.IsSuccessStatusCode)
@@ -264,6 +271,11 @@ namespace IPBSyncAppNetCore.Jobs
                         using (var reader = new JsonTextReader(new StreamReader(responseStream)))
                         {
                             JObject data = (JObject)JToken.ReadFrom(reader);
+
+                            if (data.ContainsKey("Error") && !string.IsNullOrEmpty(data["Error"].ToString()))
+                            {
+                                throw new Exception(data["Error"].ToString());
+                            }
 
                             return true;
                         }
@@ -281,8 +293,39 @@ namespace IPBSyncAppNetCore.Jobs
             return false;
         }
 
-        private void OCMarkOrderAsExported(OCOrder order)
+        private async void OCMarkOrderAsExported(OCOrder order)
         {
+            // Create an instance of HttpClient
+            using var client = new HttpClient();
+
+            // Set base address of the API
+            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+
+            try
+            {
+                dynamic[] request = [new
+                {
+                    order_id = order.OrderId
+                }];
+
+                // Configure JSON serializer options to use PascalCase
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = null
+                };
+                var content = JsonContent.Create(request, new MediaTypeWithQualityHeaderValue("application/json"), options);
+
+                HttpResponseMessage response = await client.PostAsync("orders/mark-exported", content);
+                var strResponse = await response.Content.ReadAsStringAsync();
+                Logger.Debug("Response from OpenCart");
+                Logger.Debug(strResponse);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("An error appeared when calling truncate endpoint on OpenCart");
+                Logger.Error(ex);
+            }
         }
     }
 

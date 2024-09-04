@@ -10,10 +10,10 @@ namespace IPBSyncAppNetCore.Jobs.Models
         [JsonProperty("order_id")]
         public int OrderId { get; set; }
 
-        [JsonProperty("first_name")]
+        [JsonProperty("firstname")]
         public string? FirstName { get; set; }
 
-        [JsonProperty("last_name")]
+        [JsonProperty("lastname")]
         public string? LastName { get; set; }
 
         [JsonProperty("payment_company")]
