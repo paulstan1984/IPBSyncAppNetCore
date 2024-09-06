@@ -1,6 +1,4 @@
-﻿using IPBSyncAppNetCore.Jobs.Models;
-using Newtonsoft.Json;
-using NLog;
+﻿using NLog;
 using System.Net;
 
 namespace IPBSyncAppNetCore.Jobs
@@ -40,7 +38,7 @@ namespace IPBSyncAppNetCore.Jobs
                             Logger.Error($"Image {image} couldn't be assigned to the corresponding product.");
                         }
 
-                        ChangeFileDirectory(image, Config.FTPUser);
+                        ChangeFileDirectory(image, Config.UploadedImagesPathDir);
                     }
                 }
 
