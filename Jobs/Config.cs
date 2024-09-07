@@ -13,5 +13,9 @@
         public static string FTPHost = @"89.39.190.165";
         public static string FTPUser = @"ipbsyncapp-img";
         public static string FTPPassword = @"Dev65gt!@";
+
+        public static string DescriptionsPathDir = @"C:\laragon\www\ipb\descriptions\";
+        public static string UploadedDescriptionsPathDir = @"C:\laragon\www\ipb\descriptions\uploaded";
+        public static string DescriptionSeparator = "________________________________________";
     }
 }

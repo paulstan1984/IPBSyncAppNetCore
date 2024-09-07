@@ -3,7 +3,7 @@ using System.Net;
 
 namespace IPBSyncAppNetCore.Jobs
 {
-    public class SyncImagesJob
+    public class SyncImagesJob : JobBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -38,7 +38,7 @@ namespace IPBSyncAppNetCore.Jobs
                             Logger.Error($"Image {image} couldn't be assigned to the corresponding product.");
                         }
 
-                        ChangeFileDirectory(image, Config.UploadedImagesPathDir);
+                        ChangeFileDirectory(Logger, image, Config.UploadedImagesPathDir);
                     }
                 }
 
@@ -112,7 +112,7 @@ namespace IPBSyncAppNetCore.Jobs
 
             try
             {
-                HttpResponseMessage response = await client.GetAsync($"assign-image-to-article/{productEanImage}");
+                HttpResponseMessage response = await client.PutAsync($"assign-image-to-article/{productEanImage}", null);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse);
@@ -131,31 +131,6 @@ namespace IPBSyncAppNetCore.Jobs
                 Logger.Error(ex);
                 return false;
             }
-        }
-
-        private void ChangeFileDirectory(string sourceFilePath, string targetDirectory)
-        {
-            // Check if source file exists
-            if (!File.Exists(sourceFilePath))
-            {
-                Logger.Error($"Source file does not exist: {sourceFilePath}.");
-                return;
-            }
-
-            // Ensure the target directory exists
-            if (!Directory.Exists(targetDirectory))
-            {
-                Directory.CreateDirectory(targetDirectory);
-            }
-
-            // Get the file name from the source file path
-            string fileName = Path.GetFileName(sourceFilePath);
-
-            // Combine the target directory and file name to create the new path
-            string targetFilePath = Path.Combine(targetDirectory, fileName);
-
-            // Move the file to the new directory
-            File.Move(sourceFilePath, targetFilePath);
         }
     }
 }
