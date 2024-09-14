@@ -1,9 +1,23 @@
-﻿using NLog;
+﻿using Hangfire;
+using NLog;
 
 namespace IPBSyncAppNetCore.Jobs
 {
-    public class JobBase
+    public abstract class JobBase
     {
+        public void Execute()
+        {
+            if (!IsRunning) RunJob().Wait();
+        }
+
+        public abstract Task RunJob();
+
+        public bool IsRunning => JobStorage
+                .Current
+                .GetMonitoringApi()
+                .ProcessingJobs(0, int.MaxValue)
+                .Count(j => j.Value.Job.Type.Name == this.GetType().Name) > 1;
+
         protected void ChangeFileDirectory(Logger Logger, string sourceFilePath, string targetDirectory)
         {
             // Check if source file exists
@@ -28,6 +42,5 @@ namespace IPBSyncAppNetCore.Jobs
             // Move the file to the new directory
             File.Move(sourceFilePath, targetFilePath);
         }
-
     }
 }

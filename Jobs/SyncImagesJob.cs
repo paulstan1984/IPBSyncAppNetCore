@@ -6,10 +6,7 @@ namespace IPBSyncAppNetCore.Jobs
     public class SyncImagesJob : JobBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        public void Execute() => RunJob().Wait();
-
-        private async Task RunJob()
+        public override async Task RunJob()
         {
             try
             {
