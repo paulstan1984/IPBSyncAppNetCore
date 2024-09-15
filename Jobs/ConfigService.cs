@@ -1,25 +1,5 @@
 ﻿namespace IPBSyncAppNetCore.Jobs
 {
-    public class IpbSyncAppConfig
-    {
-        public bool IsDebug { get; set; }
-
-        public string? WMERESTAPIURL { get; set; }
-        public string? WebRESTAPIURL { get; set; }
-        public string? WebAuthorizationToken { get; set; }
-        public int BatchSize { get; set; }
-
-        public string? ImagesPathDir { get; set; }
-        public string? UploadedImagesPathDir { get; set; }
-        public string? FTPHost { get; set; }
-        public string? FTPUser { get; set; }
-        public string? FTPPassword { get; set; }
-
-        public string? DescriptionsPathDir { get; set; }
-        public string? UploadedDescriptionsPathDir { get; set; }
-        public string? DescriptionSeparator { get; set; }
-    }
-
     public class ConfigService
     {
         public static IpbSyncAppConfig? Configuration { get; set; }
@@ -38,5 +18,23 @@
         public static string UploadedDescriptionsPathDir => Configuration?.UploadedDescriptionsPathDir ?? "C:\\laragon\\www\\ipb\\descriptions\\uploaded";
         public static string DescriptionSeparator => Configuration?.DescriptionSeparator ?? "________________________________________";
 
+    }
+
+
+    public class IpbSyncAppConfig
+    {
+        public bool IsDebug { get; set; }
+        public string? WMERESTAPIURL { get; set; }
+        public string? WebRESTAPIURL { get; set; }
+        public string? WebAuthorizationToken { get; set; }
+        public int BatchSize { get; set; }
+        public string? ImagesPathDir { get; set; }
+        public string? UploadedImagesPathDir { get; set; }
+        public string? FTPHost { get; set; }
+        public string? FTPUser { get; set; }
+        public string? FTPPassword { get; set; }
+        public string? DescriptionsPathDir { get; set; }
+        public string? UploadedDescriptionsPathDir { get; set; }
+        public string? DescriptionSeparator { get; set; }
     }
 }
