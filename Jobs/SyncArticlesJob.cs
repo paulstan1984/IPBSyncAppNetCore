@@ -21,7 +21,7 @@ namespace IPBSyncAppNetCore.Jobs
                 Logger.Info("WME_Products table truncated");
 
                 Logger.Info("Get articles from WME using REST API");
-                JArray? WMEProducts = Config.IsDebug 
+                JArray? WMEProducts = ConfigService.IsDebug 
                     ? await LoadProducts() // load products from a local file
                     : await GetWMEProducts(); // load products from WME Rest API
 
@@ -40,11 +40,11 @@ namespace IPBSyncAppNetCore.Jobs
                 {
                     WMEProduct[] products = WMEProducts
                         .Skip(currentIndex)
-                        .Take(Config.BatchSize)
+                        .Take(ConfigService.BatchSize)
                         .Select(x => x.ToObject<WMEProduct>())
                         .ToArray();
 
-                    currentIndex += Config.BatchSize;
+                    currentIndex += ConfigService.BatchSize;
 
                     Logger.Info($"Sending {products.Length} products to oc API...");
                     string response = await OCSyncArticles(products);
@@ -71,7 +71,7 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
             try
             {
@@ -117,8 +117,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {
@@ -152,8 +152,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {
@@ -187,8 +187,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {

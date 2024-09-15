@@ -14,7 +14,7 @@ namespace IPBSyncAppNetCore.Jobs
             {
                 Logger.Info("Start sync descriptions job");
 
-                string[] txtFiles = LoadTextFilesFromFolder(Config.DescriptionsPathDir);
+                string[] txtFiles = LoadTextFilesFromFolder(ConfigService.DescriptionsPathDir);
 
                 if (txtFiles == null || txtFiles.Length == 0)
                 {
@@ -34,7 +34,7 @@ namespace IPBSyncAppNetCore.Jobs
                         Logger.Error($"Desctiption for ean {descriptionTextFile} couldn't be updated.");
                     }
 
-                    ChangeFileDirectory(Logger, descriptionTextFile, Config.UploadedDescriptionsPathDir);
+                    ChangeFileDirectory(Logger, descriptionTextFile, ConfigService.UploadedDescriptionsPathDir);
                 }
 
                 Logger.Info("End sync images job");
@@ -60,12 +60,12 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             string fileContent = File.ReadAllText(descriptionTextFile);
             string ean = Path.GetFileNameWithoutExtension(descriptionTextFile);
-            string[] contentParts = fileContent.Split(Config.DescriptionSeparator);
+            string[] contentParts = fileContent.Split(ConfigService.DescriptionSeparator);
             string description = contentParts[0];
             string keywords = contentParts.Length == 1 
                 ? string.Empty 

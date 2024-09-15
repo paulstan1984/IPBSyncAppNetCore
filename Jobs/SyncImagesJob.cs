@@ -12,7 +12,7 @@ namespace IPBSyncAppNetCore.Jobs
             {
                 Logger.Info("Start sync images job");
 
-                string[] images = LoadImagesFromFolder(Config.ImagesPathDir);
+                string[] images = LoadImagesFromFolder(ConfigService.ImagesPathDir);
 
                 if (images == null || images.Length ==0)
                 {
@@ -25,7 +25,7 @@ namespace IPBSyncAppNetCore.Jobs
                     Logger.Info($"upload image {image}...");
 
                     //upload the file
-                    if(UploadFileToFtp(Config.FTPHost, image, Config.FTPUser, Config.FTPPassword))
+                    if(UploadFileToFtp(ConfigService.FTPHost, image, ConfigService.FTPUser, ConfigService.FTPPassword))
                     {
                         //assign the file to the product
                         bool assigned = await AssignImageToProduct(image);
@@ -35,7 +35,7 @@ namespace IPBSyncAppNetCore.Jobs
                             Logger.Error($"Image {image} couldn't be assigned to the corresponding product.");
                         }
 
-                        ChangeFileDirectory(Logger, image, Config.UploadedImagesPathDir);
+                        ChangeFileDirectory(Logger, image, ConfigService.UploadedImagesPathDir);
                     }
                 }
 
@@ -104,8 +104,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {

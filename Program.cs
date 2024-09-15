@@ -1,7 +1,8 @@
 using Hangfire;
 using IPBSyncAppNetCore.Components;
 using IPBSyncAppNetCore.Jobs;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ builder.Services.AddHangfire(configuration => configuration
 // Add the processing server as IHostedService
 builder.Services.AddHangfireServer();
 
+ConfigService.Configuration = builder.Configuration
+    .GetSection("IpbSyncAppConfig")
+    .Get<IpbSyncAppConfig>();
 
 var app = builder.Build();
 

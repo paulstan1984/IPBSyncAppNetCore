@@ -70,7 +70,7 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
             try
             {
@@ -132,7 +132,7 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
             try
             {
@@ -209,8 +209,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {
@@ -236,7 +236,7 @@ namespace IPBSyncAppNetCore.Jobs
 
         private async Task<bool> SendOrderToWME(WmeOrder order)
         {
-            if (Config.IsDebug)
+            if (ConfigService.IsDebug)
             {
                 File.WriteAllText(@$"C:\laragon\www\ipb\order-{order.NrDoc}-{order.DataDoc}.json", JsonConvert.SerializeObject(order));
                 return true;
@@ -247,7 +247,7 @@ namespace IPBSyncAppNetCore.Jobs
                 using var client = new HttpClient();
 
                 // Set base address of the API
-                client.BaseAddress = new Uri(Config.WMERESTAPIURL);
+                client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
                 try
                 {
@@ -296,8 +296,8 @@ namespace IPBSyncAppNetCore.Jobs
             using var client = new HttpClient();
 
             // Set base address of the API
-            client.BaseAddress = new Uri(Config.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", Config.WebAuthorizationToken);
+            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
 
             try
             {
