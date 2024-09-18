@@ -16,7 +16,7 @@ namespace IPBSyncAppNetCore.Jobs
             RecurringJob.AddOrUpdate<SyncArticlesJob>("sync-articles", job => job.Execute(), Cron.Daily(2));
         }
 
-        public static void TestScheduledJub(JobBase job)
+        public static void TestScheduledJob(JobBase job)
         {
             ClearJob();
             job.Execute();
