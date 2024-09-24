@@ -70,6 +70,8 @@ namespace IPBSyncAppNetCore.Jobs
             // Create an instance of HttpClient
             using var client = new HttpClient();
 
+            client.Timeout = new TimeSpan(0, 30, 0);
+
             // Set base address of the API
             client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
