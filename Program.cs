@@ -1,8 +1,6 @@
 using Hangfire;
 using IPBSyncAppNetCore.Components;
 using IPBSyncAppNetCore.Jobs;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
