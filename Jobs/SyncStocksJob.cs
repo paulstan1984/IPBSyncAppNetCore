@@ -73,6 +73,8 @@ namespace IPBSyncAppNetCore.Jobs
             // Set base address of the API
             client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
 
+            client.Timeout = new TimeSpan(0, 30, 0);
+
             try
             {
                 // Call the API asynchronously

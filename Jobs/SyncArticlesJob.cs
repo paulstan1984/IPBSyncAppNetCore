@@ -55,6 +55,9 @@ namespace IPBSyncAppNetCore.Jobs
                 Logger.Info("Call Transfer Data");
                 await OCTransferProducts();
 
+                Logger.Info("Call Repair SEO Urls");
+                await OCCallRepairSeoUrls(Logger);
+
                 Logger.Info("End Sync Articles");
             }
             catch (Exception ex)
