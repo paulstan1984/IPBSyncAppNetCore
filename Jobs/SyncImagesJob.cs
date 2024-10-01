@@ -28,7 +28,7 @@ namespace IPBSyncAppNetCore.Jobs
                     if(UploadFileToFtp(ConfigService.FTPHost, image, ConfigService.FTPUser, ConfigService.FTPPassword))
                     {
                         //assign the file to the product
-                        bool assigned = await AssignImageToProduct(image);
+                        bool assigned = await AssignImageToProduct(Path.GetFileNameWithoutExtension(image));
 
                         if (!assigned)
                         {
@@ -65,7 +65,7 @@ namespace IPBSyncAppNetCore.Jobs
             string fileName = fileInfo.Name;
 
             // Combine the FTP URL and the file name to get the destination path on the FTP server
-            string ftpFullUrl = $"{ftpUrl}/{fileName}";
+            string ftpFullUrl = $"ftp://{ftpUrl}/{fileName}";
 
             // Create an FtpWebRequest object
             FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpFullUrl);
@@ -112,7 +112,7 @@ namespace IPBSyncAppNetCore.Jobs
                 HttpResponseMessage response = await client.PutAsync($"assign-image-to-article/{productEanImage}", null);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
-                Logger.Debug(strResponse);
+                Logger.Debug(strResponse); 
 
                 // Check if the response is successful
                 if (response.IsSuccessStatusCode)
