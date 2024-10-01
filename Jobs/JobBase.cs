@@ -42,7 +42,7 @@ namespace IPBSyncAppNetCore.Jobs
             string targetFilePath = Path.Combine(targetDirectory, fileName);
 
             // Move the file to the new directory
-            File.Move(sourceFilePath, targetFilePath);
+            File.Move(sourceFilePath, targetFilePath, true);
         }
 
         protected async Task OCCallRepairSeoUrls(Logger Logger)
