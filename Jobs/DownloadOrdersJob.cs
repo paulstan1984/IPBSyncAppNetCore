@@ -156,7 +156,7 @@ namespace IPBSyncAppNetCore.Jobs
                     {
                         JObject data = (JObject)JToken.ReadFrom(reader);
 
-                        if (data["Error"].ToString() == "Ok")
+                        if (data["Error"].ToString() == "ok")
                         {
                             return PF
                                 ? order.Phone
@@ -269,7 +269,7 @@ namespace IPBSyncAppNetCore.Jobs
                         {
                             JObject data = (JObject)JToken.ReadFrom(reader);
 
-                            if (data.ContainsKey("Error") && !string.IsNullOrEmpty(data["Error"].ToString()))
+                            if (data.ContainsKey("Error") && data["Error"].ToString() != "ok")
                             {
                                 throw new Exception(data["Error"].ToString());
                             }

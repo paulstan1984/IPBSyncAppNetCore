@@ -58,7 +58,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
                     Pret = p.Price,
                     Cant = p.Quantity,
                     UM = p.Location ?? "BUC",
-                    ID = p.Model
+                    ID = p.Ean
                 })
                 .ToArray()
         };
@@ -75,6 +75,8 @@ namespace IPBSyncAppNetCore.Jobs.Models
         [JsonProperty("model")]
         public string Model { get; set; }
 
+        [JsonProperty("ean")]
+        public string Ean { get; set; }
 
         [JsonProperty("location")]
         public string Location { get; set; }
