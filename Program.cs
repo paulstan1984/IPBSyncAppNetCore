@@ -46,5 +46,5 @@ app.UseHangfireDashboard("/hangfire-dashboard", new DashboardOptions
 });
 
 JobsScheduler.ScheduleJobs();
-
+//JobsScheduler.TestScheduledJob(new SyncCategoriesJob());
 app.Run();
