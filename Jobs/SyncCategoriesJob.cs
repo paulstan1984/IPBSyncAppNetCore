@@ -43,9 +43,16 @@ namespace IPBSyncAppNetCore.Jobs
                         .Skip(currentIndex)
                         .Take(ConfigService.BatchSize)
                         .Select(x => x.ToObject<WMECategory>())
+                        .Where(x => x != null)
+                        .Where(x => x.Simbol != null && x.Simbol.ToLower().StartsWith("ipb.ro.")) //sync only ipb.ro categories
                         .ToArray();
 
                     currentIndex += ConfigService.BatchSize;
+
+                    if (categories.Length == 0)
+                    {
+                        continue;
+                    }
 
                     Logger.Info($"Sending {categories.Length} categories to oc API...");
                     string response = await OCSyncCategories(categories);
@@ -158,6 +165,7 @@ namespace IPBSyncAppNetCore.Jobs
             // Set base address of the API
             client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
             client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            client.Timeout = new TimeSpan(0, 30, 0);
 
             try
             {

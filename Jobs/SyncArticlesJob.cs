@@ -42,9 +42,16 @@ namespace IPBSyncAppNetCore.Jobs
                         .Skip(currentIndex)
                         .Take(ConfigService.BatchSize)
                         .Select(x => x.ToObject<WMEProduct>())
+                        .Where(x => x != null)
+                        .Where(x => x.SimbolClasa!= null && x.SimbolClasa.ToLower().StartsWith("ipb.ro.")) //sync only ipb.ro articles
                         .ToArray();
 
                     currentIndex += ConfigService.BatchSize;
+
+                    if (products.Length == 0)
+                    {
+                        continue;
+                    }
 
                     Logger.Info($"Sending {products.Length} products to oc API...");
                     string response = await OCSyncArticles(products);
