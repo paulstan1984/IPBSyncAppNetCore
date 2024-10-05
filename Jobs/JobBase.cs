@@ -53,6 +53,7 @@ namespace IPBSyncAppNetCore.Jobs
             // Set base address of the API
             client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
             client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            client.Timeout = new TimeSpan(0, 30, 0);
 
             try
             {
