@@ -7,6 +7,19 @@ namespace IPBSyncAppNetCore.Jobs
 {
     public abstract class JobBase
     {
+        protected readonly IHttpClientFactory _httpClientFactory;
+
+        protected JobBase(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
+
+        public HttpClient GetWebAPIHttpClient()
+            => _httpClientFactory.CreateClient(ConfigService.WebAPIHttpClient);
+
+        public HttpClient GetWMERestAPIHttpClient()
+            => _httpClientFactory.CreateClient(ConfigService.WMERestAPIHttpClient);
+
         public void Execute()
         {
             if (!IsRunning) RunJob().Wait();
@@ -48,12 +61,7 @@ namespace IPBSyncAppNetCore.Jobs
         protected async Task OCCallRepairSeoUrls(Logger Logger)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
-            client.Timeout = new TimeSpan(0, 30, 0);
+            using var client = GetWebAPIHttpClient();
 
             try
             {

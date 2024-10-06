@@ -6,6 +6,12 @@ namespace IPBSyncAppNetCore.Jobs
     public class SyncImagesJob : JobBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public SyncImagesJob(IHttpClientFactory httpClientFactory) 
+            : base(httpClientFactory)
+        {
+        }
+
         public override async Task RunJob()
         {
             try
@@ -101,11 +107,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<bool> AssignImageToProduct(string productEanImage)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {

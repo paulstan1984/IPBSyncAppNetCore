@@ -10,6 +10,12 @@ namespace IPBSyncAppNetCore.Jobs
     public class DownloadOrdersJob : JobBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public DownloadOrdersJob(IHttpClientFactory httpClientFactory) 
+            : base(httpClientFactory)
+        {
+        }
+
         public override async Task RunJob()
         {
             try
@@ -67,10 +73,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<string?> GetIdClientFromWME(bool PF, string searchField)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
+            using var client = GetWMERestAPIHttpClient();
 
             try
             {
@@ -129,10 +132,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<string> CreatePartenerOnWME(bool PF, OCOrder order)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
+            using var client = GetWMERestAPIHttpClient();
 
             try
             {
@@ -206,11 +206,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<OCOrder[]> OCDownloadOrders()
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {
@@ -244,10 +240,7 @@ namespace IPBSyncAppNetCore.Jobs
             else
             {
                 // Create an instance of HttpClient
-                using var client = new HttpClient();
-
-                // Set base address of the API
-                client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
+                using var client = GetWMERestAPIHttpClient();
 
                 try
                 {
@@ -293,11 +286,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async void OCMarkOrderAsExported(OCOrder order)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {

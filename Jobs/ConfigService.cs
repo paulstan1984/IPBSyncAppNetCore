@@ -4,6 +4,9 @@
     {
         public static IpbSyncAppConfig? Configuration { get; set; }
 
+        public static string WebAPIHttpClient = "WebAPIHttpClient";
+        public static string WMERestAPIHttpClient = "WMERestAPIHttpClient";
+
         public static bool IsDebug => Configuration?.IsDebug ?? false;
         public static string WMERESTAPIURL => Configuration?.WMERESTAPIURL ?? "http://iuliusrds.ipb.ro:8080/datasnap/rest/TServerMethods/";
         public static string WebRESTAPIURL => Configuration?.WebRESTAPIURL ?? "http://ipb.test/ipb_sync_app/sync-app/api/";

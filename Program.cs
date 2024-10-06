@@ -15,6 +15,23 @@ builder.Services.AddHangfire(configuration => configuration
     .UseRecommendedSerializerSettings()
     .UseSqlServerStorage(builder.Configuration.GetConnectionString("DBConnection")));
 
+// Register IHttpClientFactory
+builder.Services.AddHttpClient();
+
+// You can also name clients for specific uses
+builder.Services.AddHttpClient("WebAPIHttpClient", client =>
+{
+    client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+    client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+    client.Timeout = new TimeSpan(1, 30, 0);
+});
+
+builder.Services.AddHttpClient("WMERestAPIHttpClient", client =>
+{
+    client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+    client.Timeout = new TimeSpan(1, 30, 0);
+});
+
 // Add the processing server as IHostedService
 builder.Services.AddHangfireServer();
 

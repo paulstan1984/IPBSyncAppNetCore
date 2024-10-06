@@ -10,6 +10,12 @@ namespace IPBSyncAppNetCore.Jobs
     public class SyncArticlesJob : JobBase
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public SyncArticlesJob(IHttpClientFactory httpClientFactory) 
+            : base(httpClientFactory)
+        {
+        }
+
         public override async Task RunJob()
         {
             try
@@ -78,12 +84,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<JArray?> GetWMEProducts()
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            client.Timeout = new TimeSpan(0, 30, 0);
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
+            using var client = GetWMERestAPIHttpClient();
 
             try
             {
@@ -126,11 +127,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task OCTruncateTable()
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {
@@ -161,11 +158,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task OCTransferProducts()
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {
@@ -196,11 +189,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<string> OCSyncArticles(WMEProduct[] products)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             try
             {

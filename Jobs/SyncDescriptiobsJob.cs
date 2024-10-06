@@ -8,6 +8,11 @@ namespace IPBSyncAppNetCore.Jobs
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
+        public SyncDescriptionsJobs(IHttpClientFactory httpClientFactory) 
+            : base(httpClientFactory)
+        {
+        }
+
         public override async Task RunJob()
         {
             try
@@ -57,11 +62,7 @@ namespace IPBSyncAppNetCore.Jobs
         private async Task<bool> SetDescriptionForEan(string descriptionTextFile)
         {
             // Create an instance of HttpClient
-            using var client = new HttpClient();
-
-            // Set base address of the API
-            client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
-            client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
+            using var client = GetWebAPIHttpClient();
 
             string fileContent = File.ReadAllText(descriptionTextFile);
             string ean = Path.GetFileNameWithoutExtension(descriptionTextFile);

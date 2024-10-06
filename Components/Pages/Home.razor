@@ -7,12 +7,3 @@
 
 <h2>Aplicatia IPB de sincronizare WME &hArr; WebSite</h2>
 
-@code {
-    private int currentCount = 0;
-
-    private void GetStocs()
-    {
-        currentCount++;
-        BackgroundJob.Enqueue(() => new SyncStocksJob().Execute());
-    }
-}
