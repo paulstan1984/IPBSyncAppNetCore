@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="appsettings.devipb.json" />
+    <Content Remove="appsettings.Production.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="appsettings.devipb.json" />
+    <EmbeddedResource Include="appsettings.Production.json" />
   </ItemGroup>
 
   <ItemGroup>
