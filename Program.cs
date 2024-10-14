@@ -19,16 +19,16 @@ builder.Services.AddHangfire(configuration => configuration
 builder.Services.AddHttpClient();
 
 // You can also name clients for specific uses
-builder.Services.AddHttpClient("WebAPIHttpClient", client =>
+builder.Services.AddHttpClient(ConfigService.WebAPIHttpClient, client =>
 {
     client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
     client.DefaultRequestHeaders.Add("Authorization", ConfigService.WebAuthorizationToken);
     client.Timeout = new TimeSpan(1, 30, 0);
 });
 
-builder.Services.AddHttpClient("WMERestAPIHttpClient", client =>
+builder.Services.AddHttpClient(ConfigService.WMERestAPIHttpClient, client =>
 {
-    client.BaseAddress = new Uri(ConfigService.WebRESTAPIURL);
+    client.BaseAddress = new Uri(ConfigService.WMERESTAPIURL);
     client.Timeout = new TimeSpan(1, 30, 0);
 });
 
