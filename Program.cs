@@ -1,6 +1,8 @@
 using Hangfire;
+using Hangfire.MySql;
 using IPBSyncAppNetCore.Components;
 using IPBSyncAppNetCore.Jobs;
+using System.Transactions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,20 @@ builder.Services.AddHangfire(configuration => configuration
     .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
     .UseSimpleAssemblyNameTypeSerializer()
     .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(builder.Configuration.GetConnectionString("DBConnection")));
+    .UseStorage(new MySqlStorage(
+        builder.Configuration.GetConnectionString("MySQLDBConnection"),
+        new MySqlStorageOptions
+        {
+            TransactionIsolationLevel = IsolationLevel.ReadCommitted,
+            QueuePollInterval = TimeSpan.FromSeconds(15),
+            JobExpirationCheckInterval = TimeSpan.FromHours(1),
+            CountersAggregateInterval = TimeSpan.FromMinutes(5),
+            PrepareSchemaIfNecessary = true,
+            DashboardJobListLimit = 50000,
+            TransactionTimeout = TimeSpan.FromMinutes(1),
+            TablesPrefix = "Hangfire"
+        })));
+    //.UseSqlServerStorage(builder.Configuration.GetConnectionString("DBConnection")));
 
 // Register IHttpClientFactory
 builder.Services.AddHttpClient();
