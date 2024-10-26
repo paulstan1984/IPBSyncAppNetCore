@@ -1,5 +1,9 @@
-﻿using NLog;
+﻿using Microsoft.Extensions.Options;
+using NLog;
 using System.Net;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace IPBSyncAppNetCore.Jobs
 {
@@ -33,8 +37,13 @@ namespace IPBSyncAppNetCore.Jobs
                     //upload the file
                     if(UploadFileToFtp(ConfigService.FTPHost, image, ConfigService.FTPUser, ConfigService.FTPPassword))
                     {
+                        var today = DateTime.Now;
+                        string destFolder = $"{today.Year}/{today.Month.ToString("D2")}";
+
                         //assign the file to the product
-                        bool assigned = await AssignImageToProduct(Path.GetFileNameWithoutExtension(image));
+                        bool assigned = await AssignImageToProduct(
+                            Path.GetFileNameWithoutExtension(image), 
+                            $"{destFolder}/{Path.GetFileName(image)}");
 
                         if (!assigned)
                         {
@@ -69,20 +78,17 @@ namespace IPBSyncAppNetCore.Jobs
         {
             FileInfo fileInfo = new FileInfo(filePath);
             string fileName = fileInfo.Name;
+            var today = DateTime.Now;
+
+            CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}", ftpUsername, ftpPassword);
+            CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}/{today.Month.ToString("D2")}", ftpUsername, ftpPassword);
 
             // Combine the FTP URL and the file name to get the destination path on the FTP server
-            string ftpFullUrl = $"ftp://{ftpUrl}/{fileName}";
+            string destFolder = $"{today.Year}/{today.Month.ToString("D2")}";
+            string ftpFullUrl = $"ftp://{ftpUrl}/{destFolder}/{fileName}";
 
             // Create an FtpWebRequest object
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpFullUrl);
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-
-            // Set the credentials (username and password)
-            request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
-            request.EnableSsl = false; // Set to true if using FTP over SSL
-            request.UsePassive = true;  // Use passive mode if necessary
-            request.UseBinary = true;   // Upload the file in binary mode
-            request.KeepAlive = false;  // Close the connection when done
+            FtpWebRequest request = GetFtpWebRequest(ftpFullUrl, WebRequestMethods.Ftp.UploadFile, ftpUsername, ftpPassword);
 
             // Read the file contents and write them to the request stream
             byte[] fileContents;
@@ -104,14 +110,67 @@ namespace IPBSyncAppNetCore.Jobs
             }
         }
 
-        private async Task<bool> AssignImageToProduct(string productEanImage)
+        public void CreateDirectoryIfNotExists(string uri, string ftpUsername, string ftpPassword)
+        {
+            try
+            {
+                // Check if the directory exists
+                if (!DirectoryExists(uri, ftpUsername, ftpPassword))
+                {
+                    FtpWebRequest request = GetFtpWebRequest(uri, WebRequestMethods.Ftp.MakeDirectory, ftpUsername, ftpPassword);
+                    using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        private bool DirectoryExists(string uri, string ftpUsername, string ftpPassword)
+        {
+            try
+            {
+                FtpWebRequest request = GetFtpWebRequest(uri, WebRequestMethods.Ftp.ListDirectory, ftpUsername, ftpPassword);
+                using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private FtpWebRequest GetFtpWebRequest(string uri, string FTPCommand, string ftpUsername, string ftpPassword)
+        {
+            // Create an FtpWebRequest object
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(uri);
+            request.Method = FTPCommand;
+
+            // Set the credentials (username and password)
+            request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+            request.EnableSsl = false; // Set to true if using FTP over SSL
+            request.UsePassive = true;  // Use passive mode if necessary
+            request.UseBinary = true;   // Upload the file in binary mode
+            request.KeepAlive = false;  // Close the connection when done
+
+            return request;
+        }
+
+        private async Task<bool> AssignImageToProduct(string productEanImage, string filePath)
         {
             // Create an instance of HttpClient
             using var client = GetWebAPIHttpClient();
-
             try
             {
-                HttpResponseMessage response = await client.PutAsync($"assign-image-to-article/{productEanImage}", null);
+                // Configure JSON serializer options to use PascalCase
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = null
+                };
+                var content = JsonContent.Create(new { filePath }, new MediaTypeWithQualityHeaderValue("application/json"), options);
+
+                HttpResponseMessage response = await client.PutAsync($"assign-image-to-article/{productEanImage}", content);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse); 
