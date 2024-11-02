@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using NLog;
+﻿using NLog;
 using System.Net;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
