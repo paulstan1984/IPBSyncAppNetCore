@@ -55,7 +55,7 @@ namespace IPBSyncAppNetCore.Jobs
         private string[] LoadTextFilesFromFolder(string folderPath)
             => Directory.GetFiles(folderPath, "*.*", SearchOption.TopDirectoryOnly)
                         .Where(f => f.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
-                        .Take(50)
+                        .Take(ConfigService.BatchSize)
                         .ToArray();
 
 

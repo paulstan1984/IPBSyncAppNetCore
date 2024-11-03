@@ -68,7 +68,7 @@ namespace IPBSyncAppNetCore.Jobs
                                     f.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
                                     f.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) ||
                                     f.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                        .Take(50)
+                        .Take(ConfigService.BatchSize)
                         .ToArray();
 
 
