@@ -115,7 +115,7 @@ namespace IPBSyncAppNetCore.Jobs
                         var partner = (data["InfoParteneri"] as JArray)?.FirstOrDefault();
                         if (partner != null)
                         {
-                            return partner["ID"]?.ToString();
+                            return searchField;
                         }
                     }
                 }
