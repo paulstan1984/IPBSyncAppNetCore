@@ -55,7 +55,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
             Items = Products
                 ?.Select(p => new WmeItem
                 {
-                    Pret = p.Price,
+                    Pret = p.ProdPrice,
                     Cant = p.Quantity,
                     UM = p.Location ?? "BUC",
                     ID = p.Ean
@@ -91,6 +91,9 @@ namespace IPBSyncAppNetCore.Jobs.Models
         public decimal Total { get; set; }
         [JsonProperty("tax")]
         public decimal Tax { get; set; }
+
+        [JsonProperty("prod_price")]
+        public decimal ProdPrice { get; set; }
     }
 
     public class OCOrderTotal

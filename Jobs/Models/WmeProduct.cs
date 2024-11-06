@@ -19,6 +19,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
             get
             {
                 decimal outPretVanzare = 0;
+                PretVanzare = PretVanzare.Replace(",", ".");
                 decimal.TryParse(PretVanzare, out outPretVanzare);
 
                 return outPretVanzare;
@@ -31,6 +32,7 @@ namespace IPBSyncAppNetCore.Jobs.Models
             get
             {
                 decimal outPretCuTVA = 0;
+                PretCuTVA = PretCuTVA.Replace(",", ".");
                 decimal.TryParse(PretCuTVA, out outPretCuTVA);
 
                 return outPretCuTVA;
