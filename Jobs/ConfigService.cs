@@ -12,6 +12,7 @@
         public static string WebRESTAPIURL => Configuration?.WebRESTAPIURL ?? "http://ipb.test/ipb_sync_app/sync-app/api/";
         public static string WebAuthorizationToken => Configuration?.WebAuthorizationToken ?? "frefierofreiofj";
         public static int BatchSize => Configuration?.BatchSize ?? 20;
+        public static int OrderWindowDays => Configuration?.OrderWindowDays ?? 30;
         public static string ImagesPathDir => Configuration?.ImagesPathDir ?? "C:\\laragon\\www\\ipb\\images\\";
         public static string UploadedImagesPathDir => Configuration?.UploadedImagesPathDir ?? "C:\\laragon\\www\\ipb\\images\\uploaded";
         public static string FTPHost => Configuration?.FTPHost ?? "89.39.190.165";
@@ -31,6 +32,7 @@
         public string? WebRESTAPIURL { get; set; }
         public string? WebAuthorizationToken { get; set; }
         public int BatchSize { get; set; }
+        public int OrderWindowDays { get; set; }
         public string? ImagesPathDir { get; set; }
         public string? UploadedImagesPathDir { get; set; }
         public string? FTPHost { get; set; }

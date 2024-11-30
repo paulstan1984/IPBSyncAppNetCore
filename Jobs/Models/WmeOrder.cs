@@ -26,4 +26,13 @@ namespace IPBSyncAppNetCore.Jobs.Models
         public string UM { get; set; }
         public decimal Pret { get; set; }
     }
+
+    public class WmeExportedOrder
+    {
+        public string? Numar { get; set; }
+        public string? Anulata { get; set; }
+        public string? Operata { get; set; }
+        public string? Blocata { get; set; }
+        public string? Inchisa { get; set; }
+    }
 }

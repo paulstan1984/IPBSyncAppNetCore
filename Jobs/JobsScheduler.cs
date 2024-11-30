@@ -10,6 +10,8 @@ namespace IPBSyncAppNetCore.Jobs
             RecurringJob.AddOrUpdate<SyncDescriptionsJobs>("sync-descriptions", job => job.Execute(), "*/15 * * * *");
 
             RecurringJob.AddOrUpdate<DownloadOrdersJob>("download-orders", job => job.Execute(), "*/5 * * * *");
+            RecurringJob.AddOrUpdate<SyncOrdersJob>("sync-orders", job => job.Execute(), "2-59/5 * * * *");
+            
             RecurringJob.AddOrUpdate<SyncStocksJob>("sync-stocks", job => job.Execute(), "0,30 * * * *");
             
             RecurringJob.AddOrUpdate<SyncCategoriesJob>("sync-categories", job => job.Execute(), Cron.Daily(0));
