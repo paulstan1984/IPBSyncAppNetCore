@@ -22,25 +22,25 @@ namespace IPBSyncAppNetCore.Jobs
 
                 string[] images = LoadImagesFromFolder(ConfigService.ImagesPathDir);
 
-                if (images == null || images.Length ==0)
+                if (images == null || images.Length == 0)
                 {
                     Logger.Error("No new images that have to be uploaded");
                     return;
                 }
-                
+
                 foreach (var image in images)
                 {
-                    Logger.Info($"upload image {image}...");
+                    Logger.Info($"Uploading image {image}...");
 
-                    //upload the file
-                    if(UploadFileToFtp(ConfigService.FTPHost, image, ConfigService.FTPUser, ConfigService.FTPPassword))
+                    // Upload the file
+                    if (UploadFileToFtp(ConfigService.FTPHost, image, ConfigService.FTPUser, ConfigService.FTPPassword))
                     {
                         var today = DateTime.Now;
                         string destFolder = $"{today.Year}/{today.Month.ToString("D2")}";
-
-                        //assign the file to the product
+                        
+                        // Assign the file to the product
                         bool assigned = await AssignImageToProduct(
-                            Path.GetFileNameWithoutExtension(image), 
+                            Path.GetFileNameWithoutExtension(image),
                             $"{destFolder}/{Path.GetFileName(image)}");
 
                         if (!assigned)
@@ -56,7 +56,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when sync images job");
+                Logger.Error("An error appeared when syncing images job");
                 Logger.Error(ex);
             }
         }
@@ -78,33 +78,42 @@ namespace IPBSyncAppNetCore.Jobs
             string fileName = fileInfo.Name;
             var today = DateTime.Now;
 
-            CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}", ftpUsername, ftpPassword);
-            CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}/{today.Month.ToString("D2")}", ftpUsername, ftpPassword);
-
-            // Combine the FTP URL and the file name to get the destination path on the FTP server
-            string destFolder = $"{today.Year}/{today.Month.ToString("D2")}";
-            string ftpFullUrl = $"ftp://{ftpUrl}/{destFolder}/{fileName}";
-
-            // Create an FtpWebRequest object
-            FtpWebRequest request = GetFtpWebRequest(ftpFullUrl, WebRequestMethods.Ftp.UploadFile, ftpUsername, ftpPassword);
-
-            // Read the file contents and write them to the request stream
-            byte[] fileContents;
-            using (FileStream fs = fileInfo.OpenRead())
+            try
             {
-                fileContents = new byte[fs.Length];
-                fs.Read(fileContents, 0, fileContents.Length);
+                CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}", ftpUsername, ftpPassword);
+                CreateDirectoryIfNotExists($"ftp://{ftpUrl}/{today.Year}/{today.Month.ToString("D2")}", ftpUsername, ftpPassword);
+
+                // Combine the FTP URL and the file name to get the destination path on the FTP server
+                string destFolder = $"{today.Year}/{today.Month.ToString("D2")}";
+                string ftpFullUrl = $"ftp://{ftpUrl}/{destFolder}/{fileName}";
+
+                // Create an FtpWebRequest object
+                FtpWebRequest request = GetFtpWebRequest(ftpFullUrl, WebRequestMethods.Ftp.UploadFile, ftpUsername, ftpPassword);
+
+                // Read the file contents and write them to the request stream
+                byte[] fileContents;
+                using (FileStream fs = fileInfo.OpenRead())
+                {
+                    fileContents = new byte[fs.Length];
+                    fs.Read(fileContents, 0, fileContents.Length);
+                }
+
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(fileContents, 0, fileContents.Length);
+                }
+
+                // Get the response from the FTP server
+                using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
+                {
+                    return response.StatusCode == FtpStatusCode.ClosingData;
+                }
             }
-
-            using (Stream requestStream = request.GetRequestStream())
+            catch (Exception ex)
             {
-                requestStream.Write(fileContents, 0, fileContents.Length);
-            }
-
-            // Get the response from the FTP server
-            using (FtpWebResponse response = (FtpWebResponse)request.GetResponse())
-            {
-                return response.StatusCode == FtpStatusCode.ClosingData;
+                Logger.Error($"Error uploading file to FTP: {filePath}");
+                Logger.Error(ex);
+                return false;
             }
         }
 
@@ -119,8 +128,10 @@ namespace IPBSyncAppNetCore.Jobs
                     using FtpWebResponse response = (FtpWebResponse)request.GetResponse();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Error($"Error creating FTP directory: {uri}");
+                Logger.Error(ex);
             }
         }
 
