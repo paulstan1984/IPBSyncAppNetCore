@@ -75,7 +75,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when sync-categories");
+                Logger.Error("An error appeared when syncing categories job");
                 Logger.Error(ex);
             }
         }
@@ -126,17 +126,13 @@ namespace IPBSyncAppNetCore.Jobs
 
         private async Task OCTruncateTable()
         {
-            // Create an instance of HttpClient
             using var client = GetWebAPIHttpClient();
-
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("truncate-categories");
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse);
-
-                // Check if the response is successful
                 if (response.IsSuccessStatusCode)
                 {
                     using (var responseStream = await response.Content.ReadAsStreamAsync())
@@ -150,7 +146,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when calling truncate endpoint on OpenCart");
+                Logger.Error("Error calling truncate endpoint on OpenCart");
                 Logger.Error(ex);
             }
         }

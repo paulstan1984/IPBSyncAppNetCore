@@ -46,7 +46,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when sync images job");
+                Logger.Error("An error appeared when syncing descriptions job");
                 Logger.Error(ex);
             }
         }
@@ -61,9 +61,7 @@ namespace IPBSyncAppNetCore.Jobs
 
         private async Task<bool> SetDescriptionForEan(string descriptionTextFile)
         {
-            // Create an instance of HttpClient
             using var client = GetWebAPIHttpClient();
-
             string fileContent = File.ReadAllText(descriptionTextFile);
             string ean = Path.GetFileNameWithoutExtension(descriptionTextFile);
             string[] contentParts = fileContent.Split(ConfigService.DescriptionSeparator);
@@ -71,32 +69,19 @@ namespace IPBSyncAppNetCore.Jobs
             string keywords = contentParts.Length == 1 
                 ? string.Empty 
                 : string.Join(',', contentParts[1].Split(Environment.NewLine).Where(s => !string.IsNullOrWhiteSpace(s)));
-
             try
             {
-                // Configure JSON serializer options to use PascalCase
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = null
-                };
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = null };
                 var content = JsonContent.Create(new { description, keywords }, new MediaTypeWithQualityHeaderValue("application/json"), options);
-
-                HttpResponseMessage response = await client.PutAsync($"set-description-for-article/{ean}", content);
+                HttpResponseMessage response = await client.PutAsync($"set-description/{ean}", content);
                 var strResponse = await response.Content.ReadAsStringAsync();
                 Logger.Debug("Response from OpenCart");
                 Logger.Debug(strResponse);
-
-                // Check if the response is successful
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-
-                return false;
+                return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when assigning an image to a product");
+                Logger.Error($"Error setting description for EAN: {ean}");
                 Logger.Error(ex);
                 return false;
             }

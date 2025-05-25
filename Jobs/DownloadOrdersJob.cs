@@ -65,53 +65,34 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when download orders from OC/Laravel");
+                Logger.Error("An error appeared when downloading orders job");
                 Logger.Error(ex);
             }
         }
 
         private async Task<string?> GetIdClientFromWME(bool PF, string searchField)
         {
-            // Create an instance of HttpClient
             using var client = GetWMERestAPIHttpClient();
-
             try
             {
                 dynamic? searchRequest = null;
-
                 if (PF)
                 {
-                    searchRequest = new
-                    {
-                        Telefon = searchField
-                    };
+                    searchRequest = new { Telefon = searchField };
                 }
                 else
                 {
-                    searchRequest = new
-                    {
-                        CodFiscal = searchField
-                    };
+                    searchRequest = new { CodFiscal = searchField };
                 }
-
-                // Configure JSON serializer options to use PascalCase
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = null
-                };
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = null };
                 var content = JsonContent.Create(searchRequest, new MediaTypeWithQualityHeaderValue("application/json"), options);
-
-                // Call the API asynchronously
-                HttpResponseMessage response = await client.PostAsync("\"getInfoParteneri\"", content);
-
-                // Check if the response is successful
+                HttpResponseMessage response = await client.PostAsync("getInfoParteneri", content);
                 if (response.IsSuccessStatusCode)
                 {
                     using (var responseStream = await response.Content.ReadAsStreamAsync())
                     using (var reader = new JsonTextReader(new StreamReader(responseStream)))
                     {
                         JObject data = (JObject)JToken.ReadFrom(reader);
-
                         var partner = (data["InfoParteneri"] as JArray)?.FirstOrDefault();
                         if (partner != null)
                         {
@@ -122,10 +103,9 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when receiving products from WME");
+                Logger.Error("Error getting client from WME");
                 Logger.Error(ex);
             }
-
             return string.Empty;
         }
 

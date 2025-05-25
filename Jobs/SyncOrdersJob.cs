@@ -61,7 +61,7 @@ namespace IPBSyncAppNetCore.Jobs
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when sync-order-statuses");
+                Logger.Error("An error appeared when syncing orders job");
                 Logger.Error(ex);
             }
         }
@@ -117,48 +117,34 @@ namespace IPBSyncAppNetCore.Jobs
 
         private async Task<string> OCSyncOrdersStatuses(WmeExportedOrder[] wmeExportedOrders)
         {
-            // Create an instance of HttpClient
             using var client = GetWebAPIHttpClient();
-
             try
             {
-                // Configure JSON serializer options to use PascalCase
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = null
-                };
-
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = null };
                 var content = JsonContent.Create(wmeExportedOrders, new MediaTypeWithQualityHeaderValue("application/json"), options);
-
-                // Call the API asynchronously
-                var strContent = await content.ReadAsStringAsync();
-                Logger.Debug("Sending orders to OpenCart");
-                Logger.Debug(strContent);
                 HttpResponseMessage response = await client.PostAsync("sync-orders-statuses", content);
                 var strResponse = await response.Content.ReadAsStringAsync();
-                Logger.Debug("Response from OpenCart");
+                Logger.Debug("Response from OC API");
                 Logger.Debug(strResponse);
-
-                // Check if the response is successful
                 if (response.IsSuccessStatusCode)
                 {
                     using (var responseStream = await response.Content.ReadAsStreamAsync())
                     using (var reader = new JsonTextReader(new StreamReader(responseStream)))
                     {
                         JObject data = (JObject)JToken.ReadFrom(reader);
-                        Logger.Debug("Received response from OpenCart");
+                        Logger.Debug("Received response from OC API");
                         Logger.Debug(data.ToString());
-                        return data["message"].ToString();
+                        return data["message"]?.ToString() ?? string.Empty;
                     }
                 }
                 else
                 {
-                    return "Orders have not been updated.";
+                    return "Orders statuses have not been inserted.";
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error("An error appeared when pushing orders to OpenCart");
+                Logger.Error("Error pushing order statuses to OC API");
                 Logger.Error(ex);
                 return ex.Message;
             }
